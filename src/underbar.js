@@ -52,10 +52,12 @@
   // target으로 전달되는 값이 array에서 발견되면, 그 index를 리턴하세요.
   // 만일 array에서 발견할 수 없다면 -1을 리턴하세요.
   _.indexOf = function(array, target) {
-    // TIP: Here's an example of a function that needs to iterate, which we've
-    // implemented for you. Instead of using a standard `for` loop, though,
-    // it uses the iteration helper `each`, which you will need to write.
-    var result = -1;
+    /**
+     * TIP: 아래와 같이 `each`함수를 iteration 함수를 구현할 수 있습니다. 앞으로 우리가 구현할
+     * iteration 함수에서도 `for` loop를 사용하는 대신, 우리가 작성한 `each` 함수를
+     * 사용해서 iteration 함수를 구현해보세요.
+     */
+    let result = -1;
 
     _.each(array, function(item, index) {
       if (item === target && result === -1) {
@@ -72,8 +74,9 @@
 
   // 테스트 함수를 통과하지 않는 모든 element를 담은 배열을 리턴하세요.
   _.reject = function(collection, test) {
-    // TIP: see if you can re-use _.filter() here, without simply
-    // copying code in and modifying it
+    /**
+     * TIP: 위에서 구현한 `filter` 함수를 사용해서 `reject` 함수를 구현해보세요.
+     */
   };
 
   // element가 중복되지 않는 새로운 array를 만드세요.
@@ -83,17 +86,20 @@
 
   // iterator를 각 element에 적용한 결과를 담은 새로운 array를 리턴하세요.
   _.map = function(collection, iterator) {
-    // map() is a useful primitive iteration function that works a lot
-    // like each(), but in addition to running the operation on all
-    // the members, it also maintains an array of results.
+    /**
+     * `map` 함수는 다양한 경우에 사용할 수 있는 iteration function 입니다.
+     * `each` 함수와 비슷하게 동작하지만, `each` 함수와는 다르게 배열에 iterator를
+     * 실행한 결과들을 배열로 만들어 리턴합니다.
+     */
   };
 
   // 객체의 배열을 가져와서, 그 안에 있는 특정 속성의 값의 배열을 리턴하세요.
   // 예를 들어, people이라는 객체가 담긴 배열을 가져와서, 그들의 나이만 리턴할 수 있어야 합니다.
   _.pluck = function(collection, key) {
-    // TIP: map is really handy when you want to transform an array of
-    // values into a new array of values. _.pluck() is solved for you
-    // as an example of this.
+    /**
+     * TIP: `map` 함수는 어떤 값들의 배열을 새로운 배열로 만들어줄 때 굉장히 유용합니다.
+     * `pluck` 함수를 `map`을 사용해 구현해보세요.
+     */
     return _.map(collection, function(item) {
       return item[key];
     });
@@ -143,7 +149,7 @@
   // 주어진 객체를 전달된 모든 속성으로 확장합니다.
   //
   // 예제:
-  //   var obj1 = {key1: "something"};
+  //   let obj1 = {key1: "something"};
   //   _.extend(obj1, {
   //     key2: "something new",
   //     key3: "something else new"
@@ -170,10 +176,12 @@
   _.once = function(func) {
     // TIP: 아래 변수는 클로저 scope (바깥 함수 범위)에 저장되며, 리턴된 새로운 함수가 호출될 때마다,
     // 여전히 클로저 scope 내에 존재하므로, 리턴된 함수에서 사용할 수 있습니다.
-    var alreadyCalled = false;
+    let alreadyCalled = false;
 
-    // TIP: We'll return a new function that delegates to the old one, but only
-    // if it hasn't been called before.
+    /**
+     * TIP: `once` 함수는 새로운 함수를 리턴합니다. 이 함수는 이전에 한 번도 호출 된적이 없을 때만
+     * input으로 받은 함수를 실행합니다.
+     */
     return function() {
       // TIP: arguments 키워드 혹은, spread operator를 사용하세요.
       return result;
