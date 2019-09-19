@@ -2,7 +2,7 @@
   'use strict';
 
   let checkForNativeMethods = function(runUnderbarFunction) {
-    it('should not use the native version of any underbar methods in its implementation', function() {
+    it('Array의 내장 메소드를 이용하지 않고, 언더바의 메스드를 구현할 수 있어야 합니다.', function() {
       // These spies are set up in testSupport.js
       runUnderbarFunction();
       expect(Array.prototype.map.called).to.equal(false);
@@ -22,7 +22,7 @@
         _.identity(1);
       });
 
-      it('Input으로 주어진 값을 그대로 리턴해야합니다.', function() {
+      it('Input으로 주어진 값을 그대로 리턴해야 합니다.', function() {
         const uniqueObject = {};
         expect(_.identity(1)).to.equal(1);
         expect(_.identity('string')).to.equal('string');
@@ -36,7 +36,7 @@
         _.first([1, 2, 3]);
       });
 
-      it('Input으로 주어진 배열의 첫 번째 element를 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열의 첫 번째 element를 리턴해야 합니다.', function() {
         expect(_.first([1, 2, 3])).to.equal(1);
       });
 
@@ -44,11 +44,11 @@
         expect(_.first([1, 2, 3], 2)).to.eql([1, 2]);
       });
 
-      it('Index 값이 0이 주어지면 빈 배열을 리턴해야합니다.', function() {
+      it('Index 값이 0이 주어지면 빈 배열을 리턴해야 합니다.', function() {
         expect(_.first([1, 2, 3], 0)).to.eql([]);
       });
 
-      it('Index 값이 주어진 배열의 길이 보다 길다면 배열 전체를 리턴해야합니다.', function() {
+      it('Index 값이 주어진 배열의 길이 보다 길다면 배열 전체를 리턴해야 합니다.', function() {
         expect(_.first([1, 2, 3], 5)).to.eql([1, 2, 3]);
       });
     });
@@ -58,7 +58,7 @@
         _.last([1, 2, 3]);
       });
 
-      it('배열의 마지막 element를 리턴해야합니다.', function() {
+      it('배열의 마지막 element를 리턴해야 합니다.', function() {
         expect(_.last([1, 2, 3])).to.equal(3);
       });
 
@@ -66,11 +66,11 @@
         expect(_.last([1, 2, 3], 2)).to.eql([2, 3]);
       });
 
-      it('Index 값이 0이 주어지면 빈 배열을 리턴해야합니다.', function() {
+      it('Index 값이 0이 주어지면 빈 배열을 리턴해야 합니다.', function() {
         expect(_.last([1, 2, 3], 0)).to.eql([]);
       });
 
-      it('Index 값이 주어진 배열의 길이 보다 길다면 배열 전체를 리턴해야합니다.', function() {
+      it('Index 값이 주어진 배열의 길이 보다 길다면 배열 전체를 리턴해야 합니다.', function() {
         expect(_.last([1, 2, 3], 5)).to.eql([1, 2, 3]);
       });
     });
@@ -172,7 +172,7 @@
         expect(iterations).to.not.include('Do not iterate over me!');
       });
 
-      it('Input으로 주어진 객채를 순환하면서 각각의 value들에 접근할 수 있어야합니다.', function() {
+      it('Input으로 주어진 객체를 순환하면서 각각의 value에 접근할 수 있어야합니다.', function() {
         const letters = {d: 'dog', e: 'elephant', f: 'flotsam'};
         const iterations = [];
 
@@ -183,7 +183,7 @@
         expect(iterations).to.eql(['dog', 'elephant', 'flotsam']);
       });
 
-      it('Input으로 주어진 객채를 순환하면서 각각의 key들에 접근할 수 있어야합니다.', function() {
+      it('Input으로 주어진 객체를 순환하면서 각각의 key에 접근할 수 있어야합니다.', function() {
         const letters = {d: 'dog', e: 'elephant', f: 'flotsam'};
         const iterations = [];
 
@@ -198,7 +198,7 @@
         ]);
       });
 
-      it('Input으로 주어진 객채를 순환하면서 원래의 객체에 접근할 수 있어야합니다.', function() {
+      it('Input으로 주어진 객체를 순환하면서 원래의 객체에 접근할 수 있어야합니다.', function() {
         const letters = {d: 'dog', e: 'elephant', f: 'flotsam'};
         const iterations = [];
 
@@ -235,14 +235,14 @@
         _.indexOf([10, 20, 30, 40], 40);
       });
 
-      it('Input으로 주어진 배열에 찾는 값이 있을 경우 찾는 값의 index를 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열에 찾는 값이 있을 경우 찾는 값의 index를 리턴해야 합니다.', function() {
         const numbers = [10, 20, 30, 40, 50];
 
         expect(_.indexOf(numbers, 40)).to.equal(3);
         expect(_.indexOf(numbers, 20)).to.equal(1);
       });
 
-      it('Input으로 주어진 배열에 찾는 값이 없을 때 -1을 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열에 찾는 값이 없을 때 -1을 리턴해야 합니다.', function() {
         const numbers = [10, 20, 30, 40, 50];
 
         expect(_.indexOf(numbers, 35)).to.equal(-1);
@@ -261,21 +261,21 @@
         _.filter([1, 2, 3, 4], isEven);
       });
 
-      it('callback으로 짝수를 찾는 함수가 주어졌을 때 짝수로만 이루어진 배열을 리턴해야합니다.', function() {
+      it('callback으로 짝수를 찾는 함수가 주어졌을 때 짝수로만 이루어진 배열을 리턴해야 합니다.', function() {
         const isEven = function(num) { return num % 2 === 0; };
         const evens = _.filter([1, 2, 3, 4, 5, 6], isEven);
 
         expect(evens).to.eql([2, 4, 6]);
       });
 
-      it('callback으로 홀수를 찾는 함수가 주어졌을 때 홀수로만 이루어진 배열을 리턴해야합니다.', function() {
+      it('callback으로 홀수를 찾는 함수가 주어졌을 때 홀수로만 이루어진 배열을 리턴해야 합니다.', function() {
         const isOdd = function(num) { return num % 2 !== 0; };
         const odds = _.filter([1, 2, 3, 4, 5, 6], isOdd);
 
         expect(odds).to.eql([1, 3, 5]);
       });
 
-      it('Input으로 주어진 배열을 직접 다루지 않고 새로운 배열을 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열을 직접 다루지 않고 새로운 배열을 리턴해야 합니다.', function() {
         const isOdd = function(num) { return num % 2 !== 0; };
         const numbers = [1, 2, 3, 4, 5, 6];
         const evens = _.filter(numbers, isOdd);
@@ -290,21 +290,21 @@
         _.reject([1, 2, 3, 4, 5, 6], isEven);
       });
 
-      it('callback으로 짝수를 찾는 함수가 주어졌을 때 짝수가 포함되지 않은 배열을 리턴해야합니다.', function() {
+      it('callback으로 짝수를 찾는 함수가 주어졌을 때 짝수가 포함되지 않은 배열을 리턴해야 합니다.', function() {
         const isEven = function(num) { return num % 2 === 0; };
         const odds = _.reject([1, 2, 3, 4, 5, 6], isEven);
 
         expect(odds).to.eql([1, 3, 5]);
       });
 
-      it('callback으로 홀수를 찾는 함수가 주어졌을 때 홀수가 포함되지 않은 배열을 리턴해야합니다.', function() {
+      it('callback으로 홀수를 찾는 함수가 주어졌을 때 홀수가 포함되지 않은 배열을 리턴해야 합니다.', function() {
         const isOdd = function(num) { return num % 2 !== 0; };
         const evens = _.reject([1, 2, 3, 4, 5, 6], isOdd);
 
         expect(evens).to.eql([2, 4, 6]);
       });
 
-      it('Input으로 주어진 배열을 직접 다루지 않고 새로운 배열을 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열을 직접 다루지 않고 새로운 배열을 리턴해야 합니다.', function() {
         const isOdd = function(num) { return num % 2 !== 0; };
         const numbers = [1, 2, 3, 4, 5, 6];
         const evens = _.reject(numbers, isOdd);
@@ -348,20 +348,20 @@
         expect(input).to.eql([1, 2, 3, 4, 5]);
       });
 
-      it('Input으로 정렬되지 않은 배열이 주어졌을 때도 unique한 element를 리턴해야합니다.', function() {
+      it('Input으로 정렬되지 않은 배열이 주어졌을 때도 unique한 element를 리턴해야 합니다.', function() {
         const numbers = [1, 2, 1, 3, 1, 4];
 
         expect(_.uniq(numbers)).to.eql([1, 2, 3, 4]);
       });
 
-      it('Input으로 정렬된 않은 배열이 주어졌을 때도 unique한 element를 리턴해야합니다.', function() {
+      it('Input으로 정렬된 않은 배열이 주어졌을 때도 unique한 element를 리턴해야 합니다.', function() {
         const iterator = function(value) { return value + 1; };
         const numbers = [1, 2, 2, 3, 4, 4];
 
         expect(_.uniq(numbers, true, iterator)).to.eql([1, 2, 3, 4]);
       });
 
-      it('Input으로 주어진 배열을 직접 다루지 않고 새로운 배열을 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열을 직접 다루지 않고 새로운 배열을 리턴해야 합니다.', function() {
         const numbers = [1, 2, 1, 3, 1, 4];
         const uniqueNumbers = _.uniq(numbers);
 
@@ -414,7 +414,7 @@
         expect(doubledNumbers).to.eql([2, 4, 6]);
       });
 
-      it('Input으로 주어진 배열을 직접 다루지 않고 새로운 배열을 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열을 직접 다루지 않고 새로운 배열을 리턴해야 합니다.', function() {
         const numbers = [1, 2, 3];
         const mappedNumbers = _.map(numbers, function(num) {
           return num;
@@ -465,7 +465,7 @@
         expect(_.reduce).to.be.an.instanceOf(Function);
       });
 
-      it('값을 리턴해야합니다.', function() {
+      it('값을 리턴해야 합니다.', function() {
         const result = _.reduce([3, 2, 1], function(memo, item) { return item; });
         expect(result).to.be.defined;
       });

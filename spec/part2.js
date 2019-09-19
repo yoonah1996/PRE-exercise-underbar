@@ -2,7 +2,7 @@
   'use strict';
 
   const checkForNativeMethods = function(runUnderbarFunction) {
-    it('should not use the native version of any underbar methods in its implementation', function() {
+    it('Array의 내장 메소드를 이용하지 않고, 언더바의 메스드를 구현할 수 있어야 합니다.', function() {
       // These spies are set up in testSupport.js
       runUnderbarFunction();
       expect(Array.prototype.map.called).to.equal(false);
@@ -90,25 +90,25 @@
         _.every([4, 5, 6], _.identity);
       });
 
-      it('항상 boolean값을 리턴해야합니다.', function() {
+      it('항상 boolean값을 리턴해야 합니다.', function() {
         expect(_.every([1], _.identity)).to.be.true;
         expect(_.every([0], _.identity)).to.be.false;
       });
 
-      it('Input으로 빈 배열이 주어지면 true를 리턴해야합니다.', function() {
+      it('Input으로 빈 배열이 주어지면 true를 리턴해야 합니다.', function() {
         expect(_.every([], _.identity)).to.be.true;
       });
 
-      it('Input으로 주어진 배열의 모든 element들이 truthy일 때 true를 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열의 모든 element들이 truthy일 때 true를 리턴해야 합니다.', function() {
         expect(_.every([true, {}, 1], _.identity)).to.be.true;
       });
 
-      it('Input으로 주어진 배열의 모든 element들이 falsy일 때 false를 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열의 모든 element들이 falsy일 때 false를 리턴해야 합니다.', function() {
         expect(_.every([null, 0, undefined], _.identity)).to.be.false;
         expect(_.every([undefined, undefined, undefined], _.identity)).to.be.false;
       });
 
-      it('Input으로 주어진 배열의 모든 element들이 truthy일 때 false를 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열의 모든 element들이 truthy일 때 false를 리턴해야 합니다.', function() {
         expect(_.every([true, false, 1], _.identity)).to.be.false;
         expect(_.every([1, undefined, true], _.identity)).to.be.false;
       });
@@ -134,24 +134,24 @@
         _.some([4, 5, 6], _.identity);
       });
 
-      it('항상 boolean값을 리턴해야합니다.', function() {
+      it('항상 boolean값을 리턴해야 합니다.', function() {
         expect(_.some([1], _.identity)).to.be.true;
         expect(_.some([0], _.identity)).to.be.false;
       });
 
-      it('Input으로 빈 배열이 주어지면 false를 리턴해야합니다.', function() {
+      it('Input으로 빈 배열이 주어지면 false를 리턴해야 합니다.', function() {
         expect(_.some([])).to.be.false;
       });
 
-      it('Input으로 주어진 배열의 모든 element들이 truthy일 때 true를 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열의 모든 element들이 truthy일 때 true를 리턴해야 합니다.', function() {
         expect(_.some([true, {}, 1], _.identity)).to.be.true;
       });
 
-      it('Input으로 주어진 배열의 모든 element들이 falsy일 때 false를 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열의 모든 element들이 falsy일 때 false를 리턴해야 합니다.', function() {
         expect(_.some([null, 0, undefined], _.identity)).to.be.false;
       });
 
-      it('Input으로 주어진 배열의 element들이 falsy와 truthy가 섞여있을 때 true를 리턴해야합니다.', function() {
+      it('Input으로 주어진 배열의 element들이 falsy와 truthy가 섞여있을 때 true를 리턴해야 합니다.', function() {
         expect(_.some([true, false, 1], _.identity)).to.be.true;
         expect(_.some([null, 0, 'yes', false], _.identity)).to.be.true;
       });
@@ -176,7 +176,7 @@
         _.extend({ a: 1 }, { b: 1 }, { c: 1 });
       });
 
-      it('Input으로 받은 첫 번째 객체를 리턴해야합니다.', function() {
+      it('Input으로 받은 첫 번째 객체를 리턴해야 합니다.', function() {
         const destination = {};
         const source = {};
         const extended = _.extend(destination, source);
@@ -184,7 +184,7 @@
         expect(extended).to.equal(destination);
       });
 
-      it('Input으로 받은 객채들의 property를 첫 번째 객체에 추가해야합니다.', function() {
+      it('Input으로 받은 객체들의 property를 첫 번째 객체에 추가해야합니다.', function() {
         const destination = {};
         const source = { a: 'b' };
         const extended = _.extend(destination, source);
@@ -230,7 +230,7 @@
         expect(_.defaults).to.be.an.instanceOf(Function);
       });
 
-      it('항상 Input으로 주어진 첫번째 객체를 리턴해야합니다.', function() {
+      it('항상 Input으로 주어진 첫번째 객체를 리턴해야 합니다.', function() {
         /*
          * Our defaults function should only modify the contents of the original object,
          * it should not create a new object with all the same properties
@@ -367,7 +367,7 @@
         expect(_.once).to.be.an.instanceOf(Function);
       });
 
-      it('함수를 리턴해야합니다.', function() {
+      it('함수를 리턴해야 합니다.', function() {
         const noop = _.once(function() {});
 
         expect(noop).to.be.an.instanceOf(Function);
@@ -394,7 +394,7 @@
         expect(add(1, 2, 3)).to.equal(6);
       });
 
-      it('리턴 된 함수가 여러번 호출되어도 항상 첫 번째 호출되었을 때의 결과값을 리턴해야합니다.', function() {
+      it('리턴 된 함수가 여러번 호출되어도 항상 첫 번째 호출되었을 때의 결과값을 리턴해야 합니다.', function() {
         const add = _.once(function(x, y, z) {
           return x + y + z;
         });
