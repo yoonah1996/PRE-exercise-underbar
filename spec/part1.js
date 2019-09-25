@@ -1,8 +1,8 @@
 (function() {
   'use strict';
 
-  var checkForNativeMethods = function(runUnderbarFunction) {
-    it('should not use the native version of any underbar methods in its implementation', function() {
+  let checkForNativeMethods = function(runUnderbarFunction) {
+    it('Array의 내장 메소드를 이용하지 않고, 언더바의 메스드를 구현할 수 있어야 합니다.', function() {
       // These spies are set up in testSupport.js
       runUnderbarFunction();
       expect(Array.prototype.map.called).to.equal(false);
@@ -22,8 +22,8 @@
         _.identity(1);
       });
 
-      it('should return whatever value is passed into it', function() {
-        var uniqueObject = {};
+      it('Input으로 주어진 값을 그대로 리턴해야 합니다.', function() {
+        const uniqueObject = {};
         expect(_.identity(1)).to.equal(1);
         expect(_.identity('string')).to.equal('string');
         expect(_.identity(false)).to.be.false;
@@ -36,19 +36,19 @@
         _.first([1, 2, 3]);
       });
 
-      it('should be able to pull out the first element of an array', function() {
+      it('Input으로 주어진 배열의 첫 번째 element를 리턴해야 합니다.', function() {
         expect(_.first([1, 2, 3])).to.equal(1);
       });
 
-      it('should accept an index argument', function() {
+      it('Input으로 index값을 받아 다룰 수 있어야합니다.', function() {
         expect(_.first([1, 2, 3], 2)).to.eql([1, 2]);
       });
 
-      it('should return empty array if zero is passed in as the index', function() {
+      it('Index 값이 0이 주어지면 빈 배열을 리턴해야 합니다.', function() {
         expect(_.first([1, 2, 3], 0)).to.eql([]);
       });
 
-      it('should return all the array\'s elements if the index argument is larger than the length of the array', function() {
+      it('Index 값이 주어진 배열의 길이 보다 길다면 배열 전체를 리턴해야 합니다.', function() {
         expect(_.first([1, 2, 3], 5)).to.eql([1, 2, 3]);
       });
     });
@@ -58,19 +58,19 @@
         _.last([1, 2, 3]);
       });
 
-      it('should pull the last element from an array', function() {
+      it('배열의 마지막 element를 리턴해야 합니다.', function() {
         expect(_.last([1, 2, 3])).to.equal(3);
       });
 
-      it('should accept an index argument', function() {
+      it('Input으로 index값을 받아 다룰 수 있어야합니다.', function() {
         expect(_.last([1, 2, 3], 2)).to.eql([2, 3]);
       });
 
-      it('should return empty array if zero is passed in as the index', function() {
+      it('Index 값이 0이 주어지면 빈 배열을 리턴해야 합니다.', function() {
         expect(_.last([1, 2, 3], 0)).to.eql([]);
       });
 
-      it('should return all the array\'s elements if the index argument is larger than the length of the array', function() {
+      it('Index 값이 주어진 배열의 길이 보다 길다면 배열 전체를 리턴해야 합니다.', function() {
         expect(_.last([1, 2, 3], 5)).to.eql([1, 2, 3]);
       });
     });
@@ -80,18 +80,18 @@
         _.each([1, 2, 3, 4], function(number) {});
       });
 
-      it('should be a function', function() {
+      it('함수이여야 합니다.', function() {
         expect(_.each).to.be.an.instanceOf(Function);
       });
 
-      it('should not return anything', function() {
-        var returnValue = _.each([], function() {});
+      it('아무 것도 리턴하지 말아야합니다.', function() {
+        const returnValue = _.each([], function() {});
         expect(returnValue).to.not.exist;
       });
 
-      it('should not mutate the input array', function() {
-        var input = [1, 2, 3, 4, 5];
-        var result = _.each(input, function(item) { /* noop */ });
+      it('Input으로 받은 배열을 조작하지 말아야합니다.', function() {
+        const input = [1, 2, 3, 4, 5];
+        const result = _.each(input, function(item) { /* noop */ });
 
         /*
          * Mutation of inputs should be avoided without good justification otherwise
@@ -119,9 +119,9 @@
         expect(input).to.eql([1, 2, 3, 4, 5]);
       });
 
-      it(' should iterate over arrays and provide access to each value', function() {
-        var letters = ['a', 'b', 'c'];
-        var iterations = [];
+      it('Input으로 주어진 배열을 순환하면서 모든 element의 값에 접근할 수 있어야합니다.', function() {
+        const letters = ['a', 'b', 'c'];
+        const iterations = [];
 
         _.each(letters, function(letter) {
           iterations.push(letter);
@@ -130,9 +130,9 @@
         expect(iterations).to.eql(['a', 'b', 'c']);
       });
 
-      it('should iterate over arrays and provide access to each index', function() {
-        var letters = ['a', 'b', 'c'];
-        var iterations = [];
+      it('Input으로 주어진 배열을 순환하면서 모든 element의 index에 접근할 수 있어야합니다.', function() {
+        const letters = ['a', 'b', 'c'];
+        const iterations = [];
 
         _.each(letters, function(letter, index) {
           iterations.push([letter, index]);
@@ -145,9 +145,9 @@
         ]);
       });
 
-      it('should iterate over arrays and provide access to the original collection', function() {
-        var letters = ['a', 'b', 'c'];
-        var iterations = [];
+      it('Input으로 주어진 배열을 순환하면서 collection 자체에 접근할 수 있어야합니다.', function() {
+        const letters = ['a', 'b', 'c'];
+        const iterations = [];
 
         _.each(letters, function(letter, index, collection) {
           iterations.push([letter, index, collection]);
@@ -160,9 +160,9 @@
         ]);
       });
 
-      it('should only iterate over numeric keys of an array, not all properties', function() {
-        var iterations = [];
-        var letters = ['a', 'b', 'c'];
+      it('Input으로 배열이 주어졌을 때는 배열의 index에만 접근해야합니다.', function() {
+        const iterations = [];
+        const letters = ['a', 'b', 'c'];
         letters.someProperty = 'Do not iterate over me!';
 
         _.each(letters, function(letter, index, collection) {
@@ -172,9 +172,9 @@
         expect(iterations).to.not.include('Do not iterate over me!');
       });
 
-      it('should iterate over objects and provide access to each value', function() {
-        var letters = {d: 'dog', e: 'elephant', f: 'flotsam'};
-        var iterations = [];
+      it('Input으로 주어진 객체를 순환하면서 각각의 value에 접근할 수 있어야합니다.', function() {
+        const letters = {d: 'dog', e: 'elephant', f: 'flotsam'};
+        const iterations = [];
 
         _.each(letters, function(value) {
           iterations.push(value);
@@ -183,9 +183,9 @@
         expect(iterations).to.eql(['dog', 'elephant', 'flotsam']);
       });
 
-      it('should iterate over objects and provide access to each key', function() {
-        var letters = {d: 'dog', e: 'elephant', f: 'flotsam'};
-        var iterations = [];
+      it('Input으로 주어진 객체를 순환하면서 각각의 key에 접근할 수 있어야합니다.', function() {
+        const letters = {d: 'dog', e: 'elephant', f: 'flotsam'};
+        const iterations = [];
 
         _.each(letters, function(value, property) {
           iterations.push([value, property]);
@@ -198,9 +198,9 @@
         ]);
       });
 
-      it('should iterate over objects and provide access to the original object', function() {
-        var letters = {d: 'dog', e: 'elephant', f: 'flotsam'};
-        var iterations = [];
+      it('Input으로 주어진 객체를 순환하면서 원래의 객체에 접근할 수 있어야합니다.', function() {
+        const letters = {d: 'dog', e: 'elephant', f: 'flotsam'};
+        const iterations = [];
 
         _.each(letters, function(value, property, object) {
           iterations.push([value, property, object]);
@@ -213,9 +213,9 @@
         ]);
       });
 
-      it('should not confuse an object with a `length` property for an array', function() {
-        var dresser = { length: 39, width: 79, height: 127};
-        var iterations = [];
+      it('Input으로 객체가 주어졌을 때 `length`라는 property와 객체의 length를 혼돈하지 말아야합니다.', function() {
+        const dresser = { length: 39, width: 79, height: 127};
+        const iterations = [];
 
         _.each(dresser, function(value, property, object) {
           iterations.push([value, property, object]);
@@ -235,26 +235,21 @@
         _.indexOf([10, 20, 30, 40], 40);
       });
 
-      it('should find 40 in the list', function() {
-        var numbers = [10, 20, 30, 40, 50];
+      it('Input으로 주어진 배열에 찾는 값이 있을 경우 찾는 값의 index를 리턴해야 합니다.', function() {
+        const numbers = [10, 20, 30, 40, 50];
 
         expect(_.indexOf(numbers, 40)).to.equal(3);
-      });
-
-      it('should be able to compute indexOf even when the native function is undefined', function() {
-        var numbers = [10, 20, 30];
-
         expect(_.indexOf(numbers, 20)).to.equal(1);
       });
 
-      it('returns -1 when the target cannot be found not in the list', function() {
-        var numbers = [10, 20, 30, 40, 50];
+      it('Input으로 주어진 배열에 찾는 값이 없을 때 -1을 리턴해야 합니다.', function() {
+        const numbers = [10, 20, 30, 40, 50];
 
         expect(_.indexOf(numbers, 35)).to.equal(-1);
       });
 
-      it('returns the first index that the target can be found at when there are multiple matches', function() {
-        var numbers = [1, 40, 40, 40, 40, 40, 40, 40, 50, 60, 70];
+      it('Input으로 주어진 배열에 찾는 값이 여러개 있을 때 가장 앞선 index를 리턴합니다.', function() {
+        const numbers = [1, 40, 40, 40, 40, 40, 40, 40, 50, 60, 70];
 
         expect(_.indexOf(numbers, 40)).to.equal(1);
       });
@@ -262,28 +257,28 @@
 
     describe('filter', function() {
       checkForNativeMethods(function() {
-        var isEven = function(num) { return num % 2 === 0; };
+        const isEven = function(num) { return num % 2 === 0; };
         _.filter([1, 2, 3, 4], isEven);
       });
 
-      it('should return all even numbers in an array', function() {
-        var isEven = function(num) { return num % 2 === 0; };
-        var evens = _.filter([1, 2, 3, 4, 5, 6], isEven);
+      it('callback으로 짝수를 찾는 함수가 주어졌을 때 짝수로만 이루어진 배열을 리턴해야 합니다.', function() {
+        const isEven = function(num) { return num % 2 === 0; };
+        const evens = _.filter([1, 2, 3, 4, 5, 6], isEven);
 
         expect(evens).to.eql([2, 4, 6]);
       });
 
-      it('should return all odd numbers in an array', function() {
-        var isOdd = function(num) { return num % 2 !== 0; };
-        var odds = _.filter([1, 2, 3, 4, 5, 6], isOdd);
+      it('callback으로 홀수를 찾는 함수가 주어졌을 때 홀수로만 이루어진 배열을 리턴해야 합니다.', function() {
+        const isOdd = function(num) { return num % 2 !== 0; };
+        const odds = _.filter([1, 2, 3, 4, 5, 6], isOdd);
 
         expect(odds).to.eql([1, 3, 5]);
       });
 
-      it('should produce a brand new array instead of modifying the input array', function() {
-        var isOdd = function(num) { return num % 2 !== 0; };
-        var numbers = [1, 2, 3, 4, 5, 6];
-        var evens = _.filter(numbers, isOdd);
+      it('Input으로 주어진 배열을 직접 다루지 않고 새로운 배열을 리턴해야 합니다.', function() {
+        const isOdd = function(num) { return num % 2 !== 0; };
+        const numbers = [1, 2, 3, 4, 5, 6];
+        const evens = _.filter(numbers, isOdd);
 
         expect(evens).to.not.equal(numbers);
       });
@@ -291,28 +286,28 @@
 
     describe('reject', function() {
       checkForNativeMethods(function() {
-        var isEven = function(num) { return num % 2 === 0; };
+        const isEven = function(num) { return num % 2 === 0; };
         _.reject([1, 2, 3, 4, 5, 6], isEven);
       });
 
-      it('should reject all even numbers', function() {
-        var isEven = function(num) { return num % 2 === 0; };
-        var odds = _.reject([1, 2, 3, 4, 5, 6], isEven);
+      it('callback으로 짝수를 찾는 함수가 주어졌을 때 짝수가 포함되지 않은 배열을 리턴해야 합니다.', function() {
+        const isEven = function(num) { return num % 2 === 0; };
+        const odds = _.reject([1, 2, 3, 4, 5, 6], isEven);
 
         expect(odds).to.eql([1, 3, 5]);
       });
 
-      it('should reject all odd numbers', function() {
-        var isOdd = function(num) { return num % 2 !== 0; };
-        var evens = _.reject([1, 2, 3, 4, 5, 6], isOdd);
+      it('callback으로 홀수를 찾는 함수가 주어졌을 때 홀수가 포함되지 않은 배열을 리턴해야 합니다.', function() {
+        const isOdd = function(num) { return num % 2 !== 0; };
+        const evens = _.reject([1, 2, 3, 4, 5, 6], isOdd);
 
         expect(evens).to.eql([2, 4, 6]);
       });
 
-      it('should produce a brand new array instead of modifying the input array', function() {
-        var isOdd = function(num) { return num % 2 !== 0; };
-        var numbers = [1, 2, 3, 4, 5, 6];
-        var evens = _.reject(numbers, isOdd);
+      it('Input으로 주어진 배열을 직접 다루지 않고 새로운 배열을 리턴해야 합니다.', function() {
+        const isOdd = function(num) { return num % 2 !== 0; };
+        const numbers = [1, 2, 3, 4, 5, 6];
+        const evens = _.reject(numbers, isOdd);
 
         expect(evens).to.not.equal(numbers);
       });
@@ -323,9 +318,9 @@
         _.uniq([1, 2, 3, 4]);
       });
 
-      it('should not mutate the input array', function() {
-        var input = [1, 2, 3, 4, 5];
-        var result = _.uniq(input);
+      it('Input으로 주어진 배열을 직접 조작하지 말아야합니다.', function() {
+        const input = [1, 2, 3, 4, 5];
+        const result = _.uniq(input);
 
         /*
          * Mutation of inputs should be avoided without good justification otherwise
@@ -353,22 +348,22 @@
         expect(input).to.eql([1, 2, 3, 4, 5]);
       });
 
-      it('should return all unique values contained in an unsorted array', function() {
-        var numbers = [1, 2, 1, 3, 1, 4];
+      it('Input으로 정렬되지 않은 배열이 주어졌을 때도 unique한 element를 리턴해야 합니다.', function() {
+        const numbers = [1, 2, 1, 3, 1, 4];
 
         expect(_.uniq(numbers)).to.eql([1, 2, 3, 4]);
       });
 
-      it('should handle iterators that work with a sorted array', function() {
-        var iterator = function(value) { return value + 1; };
-        var numbers = [1, 2, 2, 3, 4, 4];
+      it('Input으로 정렬된 않은 배열이 주어졌을 때도 unique한 element를 리턴해야 합니다.', function() {
+        const iterator = function(value) { return value + 1; };
+        const numbers = [1, 2, 2, 3, 4, 4];
 
         expect(_.uniq(numbers, true, iterator)).to.eql([1, 2, 3, 4]);
       });
 
-      it('should produce a brand new array instead of modifying the input array', function() {
-        var numbers = [1, 2, 1, 3, 1, 4];
-        var uniqueNumbers = _.uniq(numbers);
+      it('Input으로 주어진 배열을 직접 다루지 않고 새로운 배열을 리턴해야 합니다.', function() {
+        const numbers = [1, 2, 1, 3, 1, 4];
+        const uniqueNumbers = _.uniq(numbers);
 
         expect(uniqueNumbers).to.not.equal(numbers);
       });
@@ -381,9 +376,9 @@
         });
       });
 
-      it('should not mutate the input array', function() {
-        var input = [1, 2, 3, 4, 5];
-        var result = _.map(input, function(num) { /* noop */ });
+      it('Input으로 주어진 배열을 직접 조작하지 말아야합니다.', function() {
+        const input = [1, 2, 3, 4, 5];
+        const result = _.map(input, function(num) { /* noop */ });
 
         /*
          * Mutation of inputs should be avoided without good justification otherwise
@@ -411,17 +406,17 @@
         expect(input).to.eql([1, 2, 3, 4, 5]);
       });
 
-      it('should apply a function to every value in an array', function() {
-        var doubledNumbers = _.map([1, 2, 3], function(num) {
+      it('Input으로 주어진 callback 함수를 배열의 모든 element에 적용해야합니다.', function() {
+        const doubledNumbers = _.map([1, 2, 3], function(num) {
           return num * 2;
         });
 
         expect(doubledNumbers).to.eql([2, 4, 6]);
       });
 
-      it('should produce a brand new array instead of modifying the input array', function() {
-        var numbers = [1, 2, 3];
-        var mappedNumbers = _.map(numbers, function(num) {
+      it('Input으로 주어진 배열을 직접 다루지 않고 새로운 배열을 리턴해야 합니다.', function() {
+        const numbers = [1, 2, 3];
+        const mappedNumbers = _.map(numbers, function(num) {
           return num;
         });
 
@@ -431,7 +426,7 @@
 
     describe('pluck', function() {
       checkForNativeMethods(function() {
-        var people = [
+        const people = [
           { name: 'moe', age: 30 },
           { name: 'curly', age: 50 }
         ];
@@ -439,8 +434,8 @@
         _.pluck(people, 'name');
       });
 
-      it('should return values contained at a user-defined property', function() {
-        var people = [
+      it('객체에서 유저가 직접 만든 property만 다루어야합니다.', function() {
+        const people = [
           { name: 'moe', age: 30 },
           { name: 'curly', age: 50 }
         ];
@@ -448,8 +443,8 @@
         expect(_.pluck(people, 'name')).to.eql(['moe', 'curly']);
       });
 
-      it('should not modify the original array', function() {
-        var people = [
+      it('Input으로 주어진 배열을 직접 조작하지 말아야합니다.', function() {
+        const people = [
           { name: 'moe', age: 30 },
           { name: 'curly', age: 50 }
         ];
@@ -462,22 +457,22 @@
 
     describe('reduce', function() {
       checkForNativeMethods(function() {
-        var add = function(tally, item) { return tally + item; };
+        const add = function(tally, item) { return tally + item; };
         _.reduce([1, 2, 3, 4], add);
       });
 
-      it('should be a function', function() {
+      it('함수이여야합니다.', function() {
         expect(_.reduce).to.be.an.instanceOf(Function);
       });
 
-      it('should return a value', function() {
-        var result = _.reduce([3, 2, 1], function(memo, item) { return item; });
+      it('값을 리턴해야 합니다.', function() {
+        const result = _.reduce([3, 2, 1], function(memo, item) { return item; });
         expect(result).to.be.defined;
       });
 
-      it('should not mutate the input array', function() {
-        var input = [1, 2, 3, 4, 5];
-        var result = _.reduce(input, function(memo, item) { return item; });
+      it('Input으로 주어진 배열을 직접 조작하지 말아야합니다.', function() {
+        const input = [1, 2, 3, 4, 5];
+        const result = _.reduce(input, function(memo, item) { return item; });
 
         /*
          * Mutation of inputs should be avoided without good justification otherwise
@@ -506,7 +501,7 @@
       });
 
       it('should invoke the iterator function with arguments (memo, item) in that order', function() {
-        var memoInCallback, itemInCallback;
+        let memoInCallback, itemInCallback;
 
         _.reduce(['item'], function(memo, item) {
           memoInCallback = memo;
@@ -517,8 +512,8 @@
         expect(itemInCallback).to.equal('item');
       });
 
-      it('should pass items of the array into the iterator from left to right', function() {
-        var orderTraversed = [];
+      it('Input으로 주어진 배열의 elment들을 차례대로 iterator로 넘겨주어야합니다.', function() {
+        const orderTraversed = [];
 
         _.reduce([1, 2, 3, 4], function(memo, item) {
           orderTraversed.push(item);
@@ -528,9 +523,9 @@
         expect(orderTraversed).to.eql([1, 2, 3, 4]);
       });
 
-      it('should continue to call iterator even if the iterator returns undefined', function() {
-        var callCount = 0;
-        var returnFalsy = function(total, item) {
+      it('Iterator가 undefind를 리턴하더라도 계속해서 iterator를 실행해야합니다.', function() {
+        let callCount = 0;
+        const returnFalsy = function(total, item) {
           callCount++;
           if (callCount === 1) {
             return undefined;
@@ -539,29 +534,28 @@
           }
         };
 
-        var total = _.reduce([1, 1, 2], returnFalsy);
+        const total = _.reduce([1, 1, 2], returnFalsy);
         expect(total).to.equal(3);
       });
 
-      it('should pass every item of the array into the iterator if a memo is passed in', function() {
-        var result = _.reduce([1, 2, 3], function(memo, item) {
+      it('Accumulator가 주어지면 Input으로 주어진 배열의 모든 element를 iterator에 넘겨줍니다.', function() {
+        const result = _.reduce([1, 2, 3], function(memo, item) {
           return memo - item;
         }, 10);
 
         expect(result).to.equal(4);
       });
 
-      it('should accept falsy values as a valid memo', function() {
-        // Be careful how you check if a memo has been passed in
-        var result = _.reduce([1, 2, 3], function(memo, item) {
+      it('Accumulator는 fasly한 값도 가능해야합니다.', function() {
+        const result = _.reduce([1, 2, 3], function(memo, item) {
           return memo * item;
         }, 0);
 
         expect(result).to.equal(0);
       });
 
-      it('should set memo to be the first item of the array if no memo is passed in', function() {
-        var result = _.reduce([1, 2, 3], function(memo) {
+      it('Accumulator가 주어지지 않았을 때 Input으로 주어진 배열의 첫 번째 element를 accumulator로 사용해야합니다.', function() {
+        const result = _.reduce([1, 2, 3], function(memo) {
           return memo;
         });
 
@@ -569,8 +563,8 @@
       });
 
 
-      it('should pass the second item of the array into the iterator first if a memo is not passed in', function() {
-        var result = _.reduce([3, 2, 1], function(memo, item) {
+      it('Accumulator가 주어지지 않았을 때 배열의 2번 째 element부터 iterator에 넘겨줍니다.', function() {
+        const result = _.reduce([3, 2, 1], function(memo, item) {
           return memo - item;
         });
 
