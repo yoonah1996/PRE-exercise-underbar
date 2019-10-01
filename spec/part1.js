@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  let checkForNativeMethods = function(runUnderbarFunction) {
+  var checkForNativeMethods = function(runUnderbarFunction) {
     it('Array의 내장 메소드를 이용하지 않고, 언더바의 메스드를 구현할 수 있어야 합니다.', function() {
       // These spies are set up in testSupport.js
       runUnderbarFunction();
