@@ -7,7 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "mocha .test/"
+    "test": "mocha .test/",
+    "submit": "node .travis/submit.js"
   },
   "repository": {
     "type": "git",

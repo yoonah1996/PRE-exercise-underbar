@@ -21,6 +21,4 @@ describe('Bare Minimum Requirements', function() {
   part2 = part2.replace('expect(callback).to.have.been.calledWith(1, 2);', '');
   eval(part1);
   eval(part2);
-  // require('../spec/part1.js');
-  // require('../spec/part2.js');
 });
