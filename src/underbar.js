@@ -7,6 +7,7 @@
   // 이 함수가 쓸데없어 보일지 모르겠지만, 기억하세요! - 만약 함수에 iterator가 필요하고,
   // 뭐라도 넘겨줘야 하는 상황에는 이 함수가 유용할 것입니다.
   _.identity = function(val) {
+    return val;
   };
 
   /**
@@ -34,6 +35,8 @@
   // first와 비슷하게, 마지막 n개의 element를 담은 배열을 리턴하세요.
   // 만일 n이 undefined일 경우, 단순히 마지막 element를 리턴하세요.
   _.last = function(array, n) {
+    if(n > array.length) return array;
+    return n === undefined ? array[array.length-1] : array.slice(array.length-n , array.length);
   };
 
   // iterator(value, key, collection)를 collection의 각각의 key-value pair에 대해 호출하세요.
@@ -47,6 +50,15 @@
   // Note 2: 이 문제를 풀기 위해서는 여러분이 spec 디렉토리에 있는 테스트 케이스의 요구사항을 잘 살펴볼 필요가 있습니다.
   // 실제로 어떻게 사용되는지 각 테스트 케이스 항목에 잘 나와 있습니다.
   _.each = function(collection, iterator) {
+    if(Array.isArray(collection)){
+      for(let i=0; i < collection.length; i++){
+      iterator(collection[i] , i, collection);
+      }
+    }else{
+      for(let index in collection){
+        iterator(collection[index], index, collection);
+      }
+    }
   };
 
   // target으로 전달되는 값이 array에서 발견되면, 그 index를 리턴하세요.
@@ -60,7 +72,7 @@
     let result = -1;
 
     _.each(array, function(item, index) {
-      if (item === target && result === -1) {
+      if (item === target && result === -1) { 
         result = index;
       }
     });
@@ -68,8 +80,15 @@
     return result;
   };
 
-  // 테스트 함수를 통과하는 모든 element를 담은 배열을 리턴하세요.
+  // 테스트 함수를 통과하는 모든 element를 담은 배 열을 리턴하세요.
   _.filter = function(collection, test) {
+    let result = [];
+    _.each(collection, function(val, ind, arr) {
+      if(test(val, ind, arr)){
+        result.push(val);
+      }
+    });
+    return result;
   };
 
   // 테스트 함수를 통과하지 않는 모든 element를 담은 배열을 리턴하세요.
@@ -77,10 +96,26 @@
     /**
      * TIP: 위에서 구현한 `filter` 함수를 사용해서 `reject` 함수를 구현해보세요.
      */
+    let result = [];
+    _.filter(collection, function(val, ind, arr){
+      if(!test(val, ind, arr)){
+        result.push(val);
+      }
+    });
+    return result;
   };
 
   // element가 중복되지 않는 새로운 array를 만드세요.
   _.uniq = function(array) {
+    let sortArr = array.sort((a,b) => a-b);
+    let result = [];
+    result.push(array[0]);
+    for(let i=0; i < sortArr.length -1; i++){
+      if(sortArr[i] !== sortArr[i+1]){
+        result.push(sortArr[i+1]);
+      }
+    }
+    return result;
   };
 
 
@@ -91,6 +126,11 @@
      * `each` 함수와 비슷하게 동작하지만, `each` 함수와는 다르게 배열에 iterator를
      * 실행한 결과들을 배열로 만들어 리턴합니다.
      */
+    let result = [];
+    _.each(collection, function(val, ind, arr){
+      result.push(iterator(val, ind, arr));
+    });
+    return result;
   };
 
   // 객체의 배열을 가져와서, 그 안에 있는 특정 속성의 값의 배열을 리턴하세요.
@@ -122,20 +162,71 @@
   //     return total + number * number;
   //   }); // 5가 리턴됩니다, 전달한 iterator와 관계없이, 첫번째 element가 즉시 사용됩니다.
   _.reduce = function(collection, iterator, accumulator) {
+    if(accumulator === undefined){
+      accumulator = collection[0];
+      collection = collection.slice(1);
+    }
+    _.each(collection, function(val){
+      accumulator = iterator(accumulator, val);
+    });
+    return accumulator;
   };
 
   // 배열 또는 객체가 주어진 값을 포함하는지 체크합니다. (`===` 연산자를 사용해서 판단합니다.)
   _.contains = function(collection, target) {
+    let result = false;
+    _.each(collection, function(val){
+      if(target === val){
+        result = true;
+      }
+    });
+    return result;
   };
 
 
   // 모든 element가 iterator에 의해 truthy한지 체크합니다.
   _.every = function(collection, iterator) {
+    let result = true; 
+    if(iterator === undefined){
+      for(let key in collection){
+        if(!collection[key]){
+          result = false;
+          // return result;
+          console.log(result);
+        }
+      }
+    }else{
+      _.each(collection, function(val){
+        if(!iterator(val)){
+          result = false; // iterator(val) 값이 false일때만 실행 되니까 한번이라도 false면 다시 true로 바뀔일 없음 즉 false.
+          // return result;
+          console.log(result);
+        }
+      });
+    }
+    console.log("값 :" + result);
+    return result;
   };
 
   // element가 하나라도 iterator에 의해 truthy한지 체크합니다.
   // iterator가 없다면, element 그 자체가 truthy한지 체크하세요.
   _.some = function(collection, iterator) {
+    let result = false;
+    if(collection.length === 0) result = false;
+    if(iterator === undefined){
+      for(let ind in collection){
+        if(collection[ind]){
+          result = true;
+        }
+      }
+    }else{
+      _.each(collection, function(val){
+        if(iterator(val)){
+          result = true;
+        }
+      });
+    }
+    return result;
   };
 
 
@@ -157,10 +248,24 @@
   //     bla: "even more stuff"
   //   }); // obj1은 이제 다음 키를 포함합니다. key1, key2, key3, bla
   _.extend = function(obj) {
+    for(let i=1; i < arguments.length; i++){
+      for(let key in arguments[i]){
+        arguments[0][key] = arguments[i][key];
+      }
+    }
+    return arguments[0];
   };
 
   // extend와 비슷하지만, 이번엔 이미 존재하는 key에 대해 값을 덮어쓰기 하지 않습니다.
   _.defaults = function(obj) {
+    for(let i=1; i < arguments.length; i++){
+      for(let key in arguments[i]){
+        if(!arguments[0].hasOwnProperty(key)){
+          arguments[0][key] = arguments[i][key];
+        }
+      }
+    }
+    return arguments[0];
   };
 
 
@@ -177,13 +282,17 @@
     // TIP: 아래 변수는 클로저 scope (바깥 함수 범위)에 저장되며, 리턴된 새로운 함수가 호출될 때마다,
     // 여전히 클로저 scope 내에 존재하므로, 리턴된 함수에서 사용할 수 있습니다.
     let alreadyCalled = false;
-
+    let result;
     /**
      * TIP: `once` 함수는 새로운 함수를 리턴합니다. 이 함수는 이전에 한 번도 호출 된적이 없을 때만
      * input으로 받은 함수를 실행합니다.
      */
     return function() {
       // TIP: arguments 키워드 혹은, spread operator를 사용하세요.
+      if(!alreadyCalled){
+        result = func.apply(this, arguments);
+        alreadyCalled = true;
+      }
       return result;
     };
   };
@@ -195,6 +304,11 @@
   // _.delay(someFunction, 500, 'a', 'b');
   // someFunction('a', 'b') 은 500ms 이후에 호출됩니다.
   _.delay = function(func, wait) {
+    let result = [];
+    for(let i=2; i < arguments.length; i++){
+      result.push(arguments[i]);
+    }
+    return setTimeout(func, wait, ...result);
   };
 
 
@@ -208,12 +322,32 @@
   //
   // Hint: Array.isArray 를 사용해 배열인지 아닌지를 체크하세요.
   _.flatten = function(nestedArray, result) {
+    result = [];
+    for(let i=0; i < nestedArray.length; i++){
+      if(!Array.isArray(nestedArray[i])){
+        result.push(nestedArray[i]);
+      }else{
+        result = result.concat(_.flatten(nestedArray[i])); // return이 배열로 되기때문에 concat으로  합쳐준다.
+                                                           // result = 해서 받는 이유는 그래야 합친게 저장 되기 때문. 받지 않으면 그대로.
+      }
+    }
+    return result;
   };
 
   // 배열 내용의 순서를 랜덤하게 변경합니다.
   //
   // TIP: 이 함수는 immutable해야 합니다.
   _.shuffle = function(array) {
+    let result = [];
+    for(let i=0; i < array.length; i++){
+      let rannum = Math.floor(Math.random() * array.length); // 랜덤 Math.floor(Math.random * (큰수 - 작은수)) + 작은수
+      if(!_.contains(result, array[rannum])){
+        result.push(array[rannum]);
+      }else{
+        i--;
+      }
+    }
+    return result;
   };
 
 
